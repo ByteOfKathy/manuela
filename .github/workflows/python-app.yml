@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    name: Lint
+    name: unit-tests
     runs-on: ubuntu-latest
 
     steps:

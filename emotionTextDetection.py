@@ -1,5 +1,6 @@
 import text2emotion as te
 
+
 def get_emotion_helper() -> dict:
     name = input("Hello! I'm Manuela. What's your name? \n")
     return te.get_emotion(input("Hello " + name + ", how are you feeling today? \n"))
@@ -15,7 +16,8 @@ def interpret_emotion(emotion: dict) -> dict:
     strongest_emotions = max(emotion, key=emotion.get)
     return strongest_emotions if emotion[strongest_emotions] > 0.2 else "Neutral"
 
-def respond_to_emotion(emotion: str): 
+
+def respond_to_emotion(emotion: str):
     """
     Responds to the emotion with a (currently) predetermined message
     :param emotion: the emotion to respond to
@@ -23,13 +25,17 @@ def respond_to_emotion(emotion: str):
 
     """
 
-    correct_response = input(f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n")
+    correct_response = input(
+        f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n"
+    )
 
     if correct_response == "Y":
         if emotion == "Happy":
             print("That's great! I'm happy for you!")
         elif emotion == "Sad":
-            print("I'm sorry to hear that. That must be really upsetting. I'm here for you!")
+            print(
+                "I'm sorry to hear that. That must be really upsetting. I'm here for you!"
+            )
         elif emotion == "Angry":
             print("I'm sorry to hear that. That must be frustrating. I'm here for you!")
         elif emotion == "Fear":
@@ -42,12 +48,17 @@ def respond_to_emotion(emotion: str):
         elif emotion == "Neutral":
             print("Ah, it seems it's a so-so day for you. That's okay!")
         else:
-            print("I'm sorry, I don't understand that emotion. Could you explain further? \n")
+            print(
+                "I'm sorry, I don't understand that emotion. Could you explain further? \n"
+            )
             respond_to_emotion(interpret_emotion(te.get_emotion(input())))
-    else: 
-        respond_to_emotion(interpret_emotion(te.get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))))
-        
-    
+    else:
+        respond_to_emotion(
+            interpret_emotion(
+                te.get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))
+            )
+        )
+
+
 emotion = get_emotion_helper()
 respond_to_emotion(interpret_emotion(emotion))
-

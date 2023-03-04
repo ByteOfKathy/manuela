@@ -4,7 +4,16 @@ minNeighbors = 25
 confidence = 1.1
 
 
-def detectSmile(image):
+def detectSmile(image: cv2.imread) -> list | None:
+    """
+    Detects smile in image
+    parameters
+    ----------
+    image: image to detect smile in
+    returns
+    -------
+    list of coordinates of smile
+    """
     smileCascade = cv2.CascadeClassifier("cascades/smile.xml")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = smileCascade.detectMultiScale(gray, confidence, minNeighbors)

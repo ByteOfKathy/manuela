@@ -21,7 +21,18 @@ def detectSmile(image: cv2.imread) -> list | None:
 
 
 if __name__ == "__main__":
-    image = cv2.imread("images/nice-man-smiling.jpg")
+    # static image test
+    # image = cv2.imread("images/nice-man-smiling.jpg")
+    # video test
+    import time
+
+    print("Starting video test ... taking picture soon")
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error opening video stream or file")
+        exit()
+    _, image = cap.read()
+    cap.release()
     faces = detectSmile(image)
     for x, y, w, h in faces:
         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 0, 0), 2)

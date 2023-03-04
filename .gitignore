@@ -2,5 +2,6 @@ venv/
 .vscode/
 __pycache__/
 .pytest_cache/
-*.mp3
 precommit*
+*.mp3
+

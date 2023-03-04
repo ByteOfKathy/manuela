@@ -12,7 +12,7 @@ This is not a tutorial for python, but if you don't have it installed, you can g
 
 2. Create a virtual environment with `python -m venv venv`
 
-|⚠️ Note: Replace python with your alias for your installation of python|
+|⚠️ Note: Replace python with your alias for your installation of python
 
 3. Activate the virtual environment with `. ./venv/bin/activate` for linux or `./venv/Scripts/activate` on Windows
 
@@ -26,4 +26,8 @@ This is not a tutorial for python, but if you don't have it installed, you can g
 
 2. Run `pytest` to make sure the tests pass
 
-3. Commit and push
+3. Add the required dependencies with `pip freeze > requirements.txt`
+
+4. Add the required dependencies for GHA with `pip freeze > actionsReq.txt` and take out the pyaudio dependency and any failing dependencies
+
+5. Commit and push

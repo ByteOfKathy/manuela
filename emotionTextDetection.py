@@ -17,9 +17,10 @@ def interpret_emotion(emotion: dict) -> dict:
 
 def respond_to_emotion(emotion: str): 
     """
-    Responds to the emotion with a message
+    Responds to the emotion with a (currently) predetermined message
     :param emotion: the emotion to respond to
     :return: None
+
     """
 
     correct_response = input(f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n")
@@ -35,16 +36,16 @@ def respond_to_emotion(emotion: str):
             print("I can see how you feel worried. It's okay, I'm here for you!")
         elif emotion == "Surprise":
             print("Oh, that was unexpected! what do you think about that? \n")
-            respond_to_emotion(interpret_emotion(get_emotion(input())))
+            respond_to_emotion(interpret_emotion(te.get_emotion(input())))
         elif emotion == "Disgust":
             print("I'm sorry to hear that. That must have been icky. I'm here for you!")
         elif emotion == "Neutral":
             print("Ah, it seems it's a so-so day for you. That's okay!")
         else:
             print("I'm sorry, I don't understand that emotion. Could you explain further? \n")
-            respond_to_emotion(interpret_emotion(get_emotion(input())))
+            respond_to_emotion(interpret_emotion(te.get_emotion(input())))
     else: 
-        respond_to_emotion(interpret_emotion(get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))))
+        respond_to_emotion(interpret_emotion(te.get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))))
         
     
 emotion = get_emotion_helper()

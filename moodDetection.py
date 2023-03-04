@@ -12,5 +12,5 @@ def detectEmotion(image: cv2.imread) -> str:
     -------
     emotion
     """
-    emotion = DeepFace.analyze(image, actions=['emotion'])
-    return emotion[0]['dominant_emotion']
+    emotion = DeepFace.analyze(image, actions=["emotion"])
+    return emotion[0]["dominant_emotion"]

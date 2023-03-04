@@ -17,11 +17,23 @@ def get_emotion(text: str) -> dict:
     return te.get_emotion(text)
 
 def interpret_emotion(emotion: dict) -> dict:
+    """
+    Returns the emotion with the highest value
+    :param emotion: the emotion dictionary
+    :return: the emotion with the highest value
+    """
+
     strongest_emotions = max(emotion, key=emotion.get)
-    return strongest_emotions
+    return strongest_emotions if emotion[strongest_emotions] > 0.2 else "Neutral"
 
 def respond_to_emotion(emotion: str): 
-    correct_response = input("It seems you're mostly feeling " + emotion + ". Is that correct? (Y/N) \n")
+    """
+    Responds to the emotion with a message
+    :param emotion: the emotion to respond to
+    :return: None
+    """
+
+    correct_response = input(f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n")
 
     if correct_response == "Y":
         if emotion == "Happy":
@@ -46,7 +58,6 @@ def respond_to_emotion(emotion: str):
         respond_to_emotion(interpret_emotion(get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))))
         
     
-
-
 emotion = get_emotion_helper()
 respond_to_emotion(interpret_emotion(emotion))
+

@@ -1,9 +1,14 @@
 import text2emotion as te
 
-# Text input
-text = "Hello, my name is John. I am very happy to be here! I am so excited to learn about text2emotion. I am so happy!"
-# Detect emotion
-emotion = te.get_emotion(text)
+def get_emotion(text: str)-> dict:
+    """
+    Returns a dictionary with the emotion and its value as a percentage 0.0-1.0
+    :param text: the text to analyze
+    :return: a dictionary with the emotion and its value
 
-print(emotion)
+    Example:
+    >>> get_emotion("I am happy")
+    """
+    return te.get_emotion(text)
+
 

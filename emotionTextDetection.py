@@ -1,5 +1,7 @@
 import text2emotion as te
 import textRecognizer as tr
+import numpy as np
+
 
 def get_emotion_helper() -> dict:
     name = input("Hello! I'm Manuela. What's your name? \n")
@@ -46,16 +48,16 @@ def respond_to_emotion(emotion: str):
         elif emotion == "Neutral":
             print("Ah, it seems it's a so-so day for you. That's okay!")
         else:
-            print(
-                "I'm sorry, I don't understand that emotion. Could you explain further? \n"
-            )
+            print("I'm sorry, I don't understand that emotion. Could you explain further? \n")
             respond_to_emotion(interpret_emotion(te.get_emotion(input())))
-    else:
-        respond_to_emotion(
-            interpret_emotion(
-                te.get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))
-            )
-        )
+    else: 
+        respond_to_emotion(interpret_emotion(te.get_emotion(input("Hmm, I'm sorry, could you explain further? \n"))))
+
+def get_strongest_emotion(t_emotions : dict, i_emotions : dict) -> str:
+    norm_emotions = dict()
+    for(t_emotion, t_value) in t_emotions.items():
+        norm_emotions[t_emotion] = (t_value + i_emotions[t_emotion]) / 2
+    return interpret_emotion(norm_emotions)
 
 
 emotion = get_emotion_helper()

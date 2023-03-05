@@ -5,3 +5,4 @@ __pycache__/
 precommit*
 *.mp3
 .idea/
+*.env

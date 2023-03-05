@@ -12,7 +12,7 @@ jobs:
   build:
     name: unit-tests
     runs-on: ubuntu-latest
-
+    environment: openapi
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.11
@@ -25,5 +25,7 @@ jobs:
         pip install pytest
         if [ -f actionsReq.txt ]; then pip install -r actionsReq.txt; fi
     - name: Test with pytest
+      env:
+        OPENAPIKEY: ${{ secrets.OPENAPIKEY }}
       run: |
         pytest

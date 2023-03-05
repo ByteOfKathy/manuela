@@ -31,6 +31,7 @@ def tts(text: str, debug=False) -> bool:
     parameters
     ----------
     text: text to convert to speech
+    debug: if true, prints text instead of speaking it (still tries to make speech file, but won't play it)
     returns
     -------
     True if successful, False otherwise
@@ -66,6 +67,9 @@ def tts(text: str, debug=False) -> bool:
 def recognizeSpeech(debug=False) -> str | None:
     """
     Recognizes speech
+    parameters
+    ----------
+    debug: if true, prints recognized speech and what Google thinks you said
     returns
     -------
     recognized speech
@@ -77,7 +81,7 @@ def recognizeSpeech(debug=False) -> str | None:
         r.adjust_for_ambient_noise(source, duration=1)
         tts("Listening for speech")
         # TODO: adjust listening parameters
-        audio = r.listen(source)
+        audio = r.listen(source, phrase_time_limit=10)
     # recognize speech
     try:
         if debug:

@@ -2,8 +2,8 @@ import os
 import openai
 from dotenv import load_dotenv
 
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv("openai.env")
+openai.api_key = os.getenv("OPENAPIKEY")
 
 
 def responseGenerator(emotion, context) -> str:

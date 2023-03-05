@@ -1,4 +1,4 @@
-from random import random
+import random
 from nltk.parse.dependencygraph import malt_demo
 import text2emotion as te
 import textRecognizer as tr
@@ -38,9 +38,12 @@ def respond_to_emotion(emotion: str):
 
     """
 
-    correct_response = tr.tts(f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n")
+    tr.tts(f"It seems you're mostly feeling {emotion}. Is that correct? Please respond 'yes' or 'no' \n")
 
-    if correct_response == "Y":
+    correct_response = input()
+
+     
+    if correct_response.lower() == "yes":
         if emotion == "Happy": tr.tts(random.choice(happyResponses))
         elif emotion == "Sad": tr.tts(random.choice(sadResponses))
         elif emotion == "Angry": tr.tts(random.choice(madResponses))
@@ -51,9 +54,10 @@ def respond_to_emotion(emotion: str):
         else:
             tr.tts("I'm sorry, I don't understand that emotion. Could you explain further? \n")
             respond_to_emotion(interpret_emotion(te.get_emotion(input())))
-    else: 
-        tr.tts("I'm sorry, I don't understand that emotion. Could you explain further? \n")
+    elif correct_response.lower() == "no":
+        tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
         respond_to_emotion(interpret_emotion(te.get_emotion(input())))
+
 
 def get_strongest_emotion(t_emotions : dict, i_emotions : dict) -> str:
     norm_emotions = dict()

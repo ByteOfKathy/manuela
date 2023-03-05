@@ -38,7 +38,7 @@ neutralResponses = ["Ah, it seems it's a so-so day for you. That's okay!"]
 def get_emotion_helper() -> dict:
     tr.tts("Hello! I'm Manuela. What's your name? ")
     name = input()
-    tr.tts("Hello " + name + ", how are you feeling today? \n")
+    tr.tts("Hello " + name + ", how are you feeling today?")
     return te.get_emotion(input())
 
 

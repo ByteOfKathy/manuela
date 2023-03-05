@@ -38,7 +38,7 @@ def talk_to_manuela():
     correct_response = input()
     if correct_response.lower() == "yes":
         if len(md.available_emotions) == 1 and emotion == "neutral":
-            tr.tts(random.choice(manuelaIsConfused))
+            tr.tts(oi.responseGenerator(emotion, userInput))
         elif emotion in md.available_emotions:
             tr.tts(oi.responseGenerator(emotion, userInput))
         else:

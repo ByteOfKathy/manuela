@@ -2,8 +2,8 @@ import os
 import openai
 from dotenv import load_dotenv
 
-load_dotenv("openAPI.env")
-openai.api_key = os.getenv("OPENAIAPIKEY")
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def responseGenerator(emotion, context) -> str:
@@ -31,21 +31,3 @@ def responseGenerator(emotion, context) -> str:
         )
 
     return response["choices"][0]["text"]
-
-
-# create a main
-if __name__ == "__main__":
-    print(responseGenerator("happy", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("sad", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("disgust", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("neutral", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("angry", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("fear", "What a day I had today."))
-    print("\n")
-    print(responseGenerator("surprise", "What a day I had today."))
-    print("\n")

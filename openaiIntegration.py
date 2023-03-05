@@ -24,6 +24,13 @@ def responseGenerator(emotion, context) -> str:
         prompt=f"{context}. I am feeling {emotion}. Help them feel good about themselves.",
         max_tokens=200,
     )
+    while response["choices"][0]["text"][-1] not in [".", "!", "?"]:
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=f"{context}. I am feeling {emotion}. Help them feel good about themselves.",
+            max_tokens=200,
+        )
+
     return response["choices"][0]["text"]
 
 

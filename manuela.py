@@ -113,6 +113,10 @@ def get_strongest_emotion(t_emotions: dict, i_emotions: dict) -> str:
     :param i_emotions: the emotions from the image
     :return: the emotion that is the strongest in both the text and image
     """
+    for i_emotion, i_value in i_emotions.items():
+        i_emotions[i_emotion] = i_value / (1 - i_emotions["Disgust"])
+
+    del i_emotions["Disgust"]
 
     norm_emotions = dict()
     for t_emotion, t_value in t_emotions.items():

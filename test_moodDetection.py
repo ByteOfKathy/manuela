@@ -16,4 +16,4 @@ def test_moodDetection():
     test_img = cv2.imread("images/nice-man-smiling.jpg")
     test_img2 = cv2.imread("images/nonface.jpg")
     assert md.detectEmotion(test_img) == "happy"
-    assert md.detectEmotion(test_img) == "neutral"
+    assert md.detectEmotion(test_img2) == "neutral"

@@ -106,20 +106,19 @@ def respond_to_emotion(emotion: str):
         respond_to_emotion(interpret_emotion(te.get_emotion(input())))
 
 
-def get_strongest_emotion(t_emotions: dict, i_emotions: dict) -> str:
+def combine_emotions(t_emotions: dict, i_emotions: dict) -> dict:
     """
-    Returns the emotion that is the strongest in both the text and image
+    Combines the emotions from the text and the image
     :param t_emotions: the emotions from the text
     :param i_emotions: the emotions from the image
-    :return: the emotion that is the strongest in both the text and image
+    :return: the combined emotions
     """
 
     norm_emotions = dict()
     for t_emotion, t_value in t_emotions.items():
         norm_emotions[t_emotion] = (t_value + i_emotions[t_emotion]) / 2
-    return max(
-        norm_emotions[available_emotions], key=norm_emotions[available_emotions].get
-    )
+
+    return norm_emotions
 
 
 emotion = get_emotion_helper()

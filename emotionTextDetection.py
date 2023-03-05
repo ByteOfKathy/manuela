@@ -1,5 +1,5 @@
 import text2emotion as te
-
+import textRecognizer as tr
 
 def get_emotion_helper() -> dict:
     name = input("Hello! I'm Manuela. What's your name? \n")
@@ -25,9 +25,7 @@ def respond_to_emotion(emotion: str):
 
     """
 
-    correct_response = input(
-        f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n"
-    )
+    correct_response = tr.tts(f"It seems you're mostly feeling {emotion}. Is that correct? (Y/N) \n")
 
     if correct_response == "Y":
         if emotion == "Happy":

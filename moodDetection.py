@@ -32,7 +32,6 @@ def combine_emotions(t_emotions: dict, i_emotion: str) -> dict:
     :return: the combined emotions
     """
 
-
     t_emotions[i_emotion] += 0.7
 
     return t_emotions
@@ -59,5 +58,5 @@ def interpret_emotion(emotion: dict) -> str:
 
     image_emotions = vd.getEmotion()
     emotion = combine_emotions(emotion, image_emotions)
-    
+
     return max_emotion[0] if max_emotion[1] > 0.2 else "neutral"

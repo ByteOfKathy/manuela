@@ -4,7 +4,8 @@ import cv2
 
 
 # only run this locally or it will fail GHA
-def xtest_moodDetection():
+@pytest.mark.skip
+def test_moodDetection():
     """
     Returns True if the emotion detected in image is happy
     """

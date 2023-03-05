@@ -25,5 +25,7 @@ jobs:
         pip install pytest
         if [ -f actionsReq.txt ]; then pip install -r actionsReq.txt; fi
     - name: Test with pytest
+      env:
+        OPENAPIKEY: ${{ secrets.OPENAPIKEY }}
       run: |
         pytest

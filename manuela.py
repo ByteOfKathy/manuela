@@ -3,6 +3,8 @@ from nltk.parse.dependencygraph import malt_demo
 import text2emotion as te
 import textRecognizer as tr
 import numpy as np
+import moodDetection as md
+
 
 happyResponses = [
     "That's great! I'm happy for you!",
@@ -33,10 +35,6 @@ manuelaIsConfused = [
     "I'm sorry, but the emotion you're feeling is not in my databases."
 ]
 
-global available_emotions
-available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"])
-
-
 def get_emotion_helper() -> dict:
     """
     Gets the emotion from the user
@@ -45,25 +43,12 @@ def get_emotion_helper() -> dict:
     tr.tts("Hello! I'm Manuela. What's your name? ")
     name = input()
     tr.tts("Hello " + name + ", how are you feeling today?")
-    emotion_weights: dict = te.get_emotion(input())
+
+    userInput = input()
+    emotion_weights: dict = te.get_emotion(userInput)
     emotion_weights["Neutral"] = 0
     return emotion_weights
 
-
-def interpret_emotion(emotion: dict) -> str:
-    """
-    Interprets the emotion
-    :param emotion: the emotion to interpret
-    :return: the emotion that is the strongest
-    """
-    if "Neutral" not in emotion:
-        emotion["Neutral"] = 0.0
-    max_emotion = ["Neutral", 0.0]
-    for emo in available_emotions:
-        if emotion[emo] > max_emotion[1]:
-            max_emotion = emo, emotion[emo]
-
-    return max_emotion[0] if max_emotion[1] > 0.2 else "Neutral"
 
 
 def respond_to_emotion(emotion: str):
@@ -89,7 +74,7 @@ def respond_to_emotion(emotion: str):
             tr.tts(random.choice(fearResponses))
         elif emotion == "Surprise":
             tr.tts(random.choice(surpriseResponses))
-        elif len(available_emotions) == 1 and emotion == "Neutral":
+        elif len(md.available_emotions) == 1 and emotion == "Neutral":
             tr.tts(random.choice(manuelaIsConfused))
         elif emotion == "Neutral":
             tr.tts(random.choice(neutralResponses))
@@ -98,29 +83,14 @@ def respond_to_emotion(emotion: str):
             tr.tts(
                 "I'm sorry, I don't understand that emotion. Could you explain further?"
             )
-            respond_to_emotion(interpret_emotion(te.get_emotion(input())))
+            respond_to_emotion(md.interpret_emotion(te.get_emotion(input())))
     elif correct_response.lower() == "no":
         tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
         if emotion != "Neutral":
-            available_emotions.remove(emotion)
-        respond_to_emotion(interpret_emotion(te.get_emotion(input())))
-
-
-def combine_emotions(t_emotions: dict, i_emotions: dict) -> dict:
-    """
-    Combines the emotions from the text and the image
-    :param t_emotions: the emotions from the text
-    :param i_emotions: the emotions from the image
-    :return: the combined emotions
-    """
-
-    norm_emotions = dict()
-    for t_emotion, t_value in t_emotions.items():
-        norm_emotions[t_emotion] = (t_value + i_emotions[t_emotion]) / 2
-
-    return norm_emotions
+            md.available_emotions.remove(emotion)
+        respond_to_emotion(md.interpret_emotion(te.get_emotion(input())))
 
 
 emotion = get_emotion_helper()
-top_emotion = interpret_emotion(emotion)
+top_emotion = md.interpret_emotion(emotion)
 respond_to_emotion(top_emotion)

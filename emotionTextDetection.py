@@ -29,6 +29,7 @@ surpriseResponses = [
     "I'm surprised by that!",
 ]
 neutralResponses = ["Ah, it seems it's a so-so day for you. That's okay!"]
+manuelaIsConfused = ["I'm sorry, but the emotion you're feeling is not in my databases."]
 
 global available_emotions
 available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"])
@@ -86,8 +87,11 @@ def respond_to_emotion(emotion: str):
             tr.tts(random.choice(fearResponses))
         elif emotion == "Surprise":
             tr.tts(random.choice(surpriseResponses))
+        elif len(available_emotions) == 1 and emotion == "Neutral":
+            tr.tts(random.choice(manuelaIsConfused))
         elif emotion == "Neutral":
             tr.tts(random.choice(neutralResponses))
+
         else:
             tr.tts(
                 "I'm sorry, I don't understand that emotion. Could you explain further?"

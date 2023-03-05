@@ -38,6 +38,10 @@ available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"
 
 
 def get_emotion_helper() -> dict:
+    """
+    Gets the emotion from the user
+    :return: the emotion from the user
+    """
     tr.tts("Hello! I'm Manuela. What's your name? ")
     name = input()
     tr.tts("Hello " + name + ", how are you feeling today?")
@@ -48,11 +52,10 @@ def get_emotion_helper() -> dict:
 
 def interpret_emotion(emotion: dict) -> str:
     """
-    Returns the emotion with the highest value
-    :param emotion: the emotion dictionary
-    :return: the emotion with the highest value
+    Interprets the emotion
+    :param emotion: the emotion to interpret
+    :return: the emotion that is the strongest
     """
-
     if "Neutral" not in emotion:
         emotion["Neutral"] = 0.0
     max_emotion = ["Neutral", 0.0]
@@ -65,11 +68,8 @@ def interpret_emotion(emotion: dict) -> str:
 
 def respond_to_emotion(emotion: str):
     """
-    Responds to the emotion with a (currently) predetermined message
+    Responds to the emotion
     :param emotion: the emotion to respond to
-    :param available_emotions: the available emotions not already disproven
-    :return: None
-
     """
 
     tr.tts(
@@ -108,12 +108,10 @@ def respond_to_emotion(emotion: str):
 
 def get_strongest_emotion(t_emotions: dict, i_emotions: dict) -> str:
     """
-    Gets the strongest emotions from an average of likelihoods from different sources
-    :param t_emotions: the emotion likelihoods derived from text input
-    :param i_emotions: the emotion likelihoods derived from facial(image) input
-    :param available_emotions: the available emotions not already disproven
-    :return: the strongest emotion
-
+    Returns the emotion that is the strongest in both the text and image
+    :param t_emotions: the emotions from the text
+    :param i_emotions: the emotions from the image
+    :return: the emotion that is the strongest in both the text and image
     """
 
     norm_emotions = dict()

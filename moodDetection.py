@@ -15,12 +15,13 @@ def detectEmotion(image: cv2.imread) -> str:
     -------
     emotion
     """
-    
+
     try:
         emotion = DeepFace.analyze(image, actions=["emotion"])
         return emotion[0]["dominant_emotion"]
     except ValueError as e:
         return "neutral"
+
 
 def combine_emotions(t_emotions: dict, i_emotions: dict) -> dict:
     """
@@ -51,5 +52,3 @@ def interpret_emotion(emotion: dict) -> str:
             max_emotion = emo, emotion[emo]
 
     return max_emotion[0] if max_emotion[1] > 0.2 else "Neutral"
-
-

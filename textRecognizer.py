@@ -25,30 +25,7 @@ neutralSuggestions = ["Try to smile more!", "What would make you happy?"]
 # functions related to output
 
 
-def offerSuggestion(mood: Mood) -> str:
-    """
-    Returns a suggestion based on mood
-    parameters
-    ----------
-    mood: mood to offer suggestion for
-    returns
-    -------
-    suggestion
-    """
-    # case of moods
-    if mood == Mood.HAPPY:
-        return random.choice(happySuggestions)
-    elif mood == Mood.SAD:
-        return random.choice(sadSuggestions)
-    elif mood == Mood.ANGRY:
-        return random.choice(angrySuggestions)
-    elif mood == Mood.NEUTRAL:
-        return random.choice(neutralSuggestions)
-    else:
-        return "Uh oh, this is a new one! Unrecognized mood!"
-
-
-def tts(text: str) -> bool:
+def tts(text: str, debug=False) -> bool:
     """
     Converts text to speech
     parameters
@@ -65,13 +42,16 @@ def tts(text: str) -> bool:
         speech.save("manuelaOut.mp3")
         os.chmod("manuelaOut.mp3", 0o777)
 
-        # play speech
+        # play speech if not silenced
         # os check for windows
-        if os.name.lower() == "nt":
-            playsound.playsound("manuelaOut.mp3")
+        if not debug:
+            if os.name.lower() == "nt":
+                playsound.playsound("manuelaOut.mp3")
+            else:
+                # use aplay for linux
+                os.system("aplay manuelaOut.mp3")
         else:
-            # use aplay for linux
-            os.system("aplay manuelaOut.mp3")
+            print(text)
 
         os.remove("manuelaOut.mp3")
         return True
@@ -138,6 +118,6 @@ if __name__ == "__main__":
     # tts(offerSuggestion("test"))
 
     # input tests
-
-    tts("Starting speech recognition tests")
-    recognizeSpeech(debug=True)
+    debug = True
+    tts("Starting speech recognition tests in debug mode")
+    recognizeSpeech(debug)

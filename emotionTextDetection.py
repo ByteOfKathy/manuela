@@ -84,7 +84,7 @@ def respond_to_emotion(emotion: str):
             tr.tts(random.choice(neutralResponses))
         else:
             tr.tts(
-                "I'm sorry, I don't understand that emotion. Could you explain further? \n"
+                "I'm sorry, I don't understand that emotion. Could you explain further?"
             )
             respond_to_emotion(interpret_emotion(te.get_emotion(input())))
     elif correct_response.lower() == "no":

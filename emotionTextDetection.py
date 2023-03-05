@@ -62,7 +62,7 @@ def respond_to_emotion(emotion: str):
     """
 
     tr.tts(
-        f"It seems you're mostly feeling {emotion}. Is that correct? Please respond 'yes' or 'no' \n"
+        f"It seems you're mostly feeling {emotion}. Is that correct? Please respond yes or no"
     )
 
     correct_response = input()

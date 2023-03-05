@@ -4,6 +4,7 @@ import cv2
 global available_emotions
 available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"])
 
+
 def detectEmotion(image: cv2.imread) -> str:
     """
     Detects emotion in image

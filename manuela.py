@@ -35,6 +35,7 @@ manuelaIsConfused = [
     "I'm sorry, but the emotion you're feeling is not in my databases."
 ]
 
+
 def get_emotion_helper() -> dict:
     """
     Gets the emotion from the user
@@ -48,7 +49,6 @@ def get_emotion_helper() -> dict:
     emotion_weights: dict = te.get_emotion(userInput)
     emotion_weights["Neutral"] = 0
     return emotion_weights
-
 
 
 def respond_to_emotion(emotion: str):

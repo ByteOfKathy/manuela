@@ -29,7 +29,9 @@ surpriseResponses = [
     "I'm surprised by that!",
 ]
 neutralResponses = ["Ah, it seems it's a so-so day for you. That's okay!"]
-manuelaIsConfused = ["I'm sorry, but the emotion you're feeling is not in my databases."]
+manuelaIsConfused = [
+    "I'm sorry, but the emotion you're feeling is not in my databases."
+]
 
 global available_emotions
 available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"])

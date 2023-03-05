@@ -13,7 +13,7 @@ def get_emotion_helper() -> dict:
     :return: the emotion from the user
     """
     tr.tts("Hello! I'm Manuela. What's your name? ")
-    name = input()
+    name = tr.recognizeSpeech()
     tr.tts("Hello " + name + ", how are you feeling today?")
 
     talk_to_manuela()
@@ -26,7 +26,7 @@ def talk_to_manuela():
     """
 
     # Prompt from the user
-    userInput = input()
+    userInput = tr.recognizeSpeech()
     emotion_weights: dict = te.get_emotion(userInput)
     emotion_weights["neutral"] = 0
     emotion = md.interpret_emotion(emotion_weights).lower()
@@ -35,7 +35,7 @@ def talk_to_manuela():
         f"It seems you're mostly feeling {emotion}. Is that correct? Please respond yes or no"
     )
 
-    correct_response = input()
+    correct_response = tr.recognizeSpeech()
     if correct_response.lower() == "yes":
         if len(md.available_emotions) == 1 and emotion == "neutral":
             tr.tts(
@@ -55,4 +55,5 @@ def talk_to_manuela():
         talk_to_manuela()
 
 
-get_emotion_helper()
+if __name__ == "__main__":
+    get_emotion_helper()

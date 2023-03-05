@@ -78,15 +78,16 @@ def recognizeSpeech(debug=False) -> str | None:
     r = sr.Recognizer()
     # open microphone
     with sr.Microphone() as source:
+        tts("Hang on, I'm adjusting for ambient noise")
         r.adjust_for_ambient_noise(source, duration=1)
-        tts("Listening for speech")
+        tts("Ok, now I'm listening")
         # TODO: adjust listening parameters
         audio = r.listen(source, phrase_time_limit=10)
     # recognize speech
     try:
+        txt = r.recognize_google(audio)
         if debug:
             tts("Google Speech Recognition thinks you said:")
-            txt = r.recognize_google(audio)
             tts(txt)
         return txt
     except sr.UnknownValueError:

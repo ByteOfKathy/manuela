@@ -30,6 +30,10 @@ def combine_emotions(t_emotions: dict, i_emotions: dict) -> dict:
     :param i_emotions: the emotions from the image
     :return: the combined emotions
     """
+    for i_emotion, i_value in i_emotions.items():
+        i_emotions[i_emotion] = i_value / (1 - i_emotions["Disgust"])
+
+    del i_emotions["Disgust"]
 
     norm_emotions = dict()
     for t_emotion, t_value in t_emotions.items():

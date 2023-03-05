@@ -17,4 +17,3 @@ def detectEmotion(image: cv2.imread) -> str:
         return emotion[0]["dominant_emotion"]
     except ValueError as e:
         return "neutral"
-

@@ -1,6 +1,8 @@
 import time
 import cv2
 import moodDetection as md
+
+
 def startVideo():
     """
     Starts video capture
@@ -9,6 +11,8 @@ def startVideo():
     ret, frame = cap.read()
     cap.release()
     return frame
+
+
 def getEmotion() -> str:
     """
     Gets emotion from video
@@ -16,4 +20,3 @@ def getEmotion() -> str:
     frame = startVideo()
     emotion = md.detectEmotion(frame)
     return emotion
-

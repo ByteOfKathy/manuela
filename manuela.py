@@ -6,35 +6,6 @@ import numpy as np
 import moodDetection as md
 import openaiIntegration as oi
 
-happyResponses = [
-    "That's great! I'm happy for you!",
-    "I'm glad you're feeling happy!",
-    "I'm glad you're feeling good!",
-]
-sadResponses = [
-    "Keep your chin up, it'll be alright!",
-    "I'm sorry to hear that. That must be really upsetting. I'm here for you!",
-    "I'm sorry about that. Everything will be alright!",
-]
-madResponses = [
-    "I'm sorry to hear that. That must be frustrating. I'm here for you!",
-    "I'm sorry about that. I hope you feel better soon!",
-]
-fearResponses = [
-    "I can see how you feel worried. It's okay, I'm here for you!",
-    "I'm sorry to hear that. I hope you feel better soon!",
-    "I'm sorry about that. I hope you feel better soon!",
-]
-surpriseResponses = [
-    "Oh, that was unexpected!",
-    "Wow, that's surprising!",
-    "I'm surprised by that!",
-]
-neutralResponses = ["Ah, it seems it's a so-so day for you. That's okay!"]
-manuelaIsConfused = [
-    "I'm sorry, but the emotion you're feeling is not in my databases."
-]
-
 
 def get_emotion_helper() -> dict:
     """
@@ -46,6 +17,7 @@ def get_emotion_helper() -> dict:
     tr.tts("Hello " + name + ", how are you feeling today?")
 
     talk_to_manuela()
+
 
 def talk_to_manuela():
     """
@@ -62,7 +34,7 @@ def talk_to_manuela():
     tr.tts(
         f"It seems you're mostly feeling {emotion}. Is that correct? Please respond yes or no"
     )
-    
+
     correct_response = input()
     if correct_response.lower() == "yes":
         if len(md.available_emotions) == 1 and emotion == "neutral":
@@ -74,7 +46,7 @@ def talk_to_manuela():
                 "I'm sorry, I don't understand that emotion. Could you explain further?"
             )
             talk_to_manuela()
-    elif correct_response.lower() == "no":
+    else:
         tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
         if emotion != "neutral":
             md.available_emotions.remove(emotion)

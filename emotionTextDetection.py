@@ -42,21 +42,22 @@ def get_emotion_helper() -> dict:
     return te.get_emotion(input())
 
 
-def interpret_emotion(emotion: dict) -> dict:
+def interpret_emotion(emotion: dict, a_emotions : set(str)) -> dict:
     """
     Returns the emotion with the highest value
     :param emotion: the emotion dictionary
     :return: the emotion with the highest value
     """
 
-    strongest_emotions = max(emotion, key=emotion.get)
+    strongest_emotions = max(emotion[a_emotions], key = emotion[a_emotions].get) # Needs to be replaced with get_strongest_emotion later
     return strongest_emotions if emotion[strongest_emotions] > 0.2 else "Neutral"
 
 
-def respond_to_emotion(emotion: str):
+def respond_to_emotion(emotion: str, a_emotions : set(str)):
     """
     Responds to the emotion with a (currently) predetermined message
     :param emotion: the emotion to respond to
+    :param a_emotions: the available emotions not already disproven
     :return: None
 
     """
@@ -86,18 +87,28 @@ def respond_to_emotion(emotion: str):
             tr.tts(
                 "I'm sorry, I don't understand that emotion. Could you explain further?"
             )
-            respond_to_emotion(interpret_emotion(te.get_emotion(input())))
+            respond_to_emotion(interpret_emotion(te.get_emotion(input()), a_emotions))
     elif correct_response.lower() == "no":
         tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
-        respond_to_emotion(interpret_emotion(te.get_emotion(input())))
+        a_emotions.remove(emotion)
+        respond_to_emotion(interpret_emotion(te.get_emotion(input()), a_emotions))
 
 
-def get_strongest_emotion(t_emotions: dict, i_emotions: dict) -> str:
+def get_strongest_emotion(t_emotions: dict, i_emotions: dict, a_emotions: set(str)) -> str:
+    """
+    Gets the strongest emotions from an average of likelihoods from different sources
+    :param t_emotions: the emotion likelihoods derived from text input
+    :param i_emotions: the emotion likelihoods derived from facial(image) input
+    :param a_emotions: the available emotions not already disproven
+    :return: the strongest emotion
+
+    """
+
     norm_emotions = dict()
     for t_emotion, t_value in t_emotions.items():
         norm_emotions[t_emotion] = (t_value + i_emotions[t_emotion]) / 2
-    return interpret_emotion(norm_emotions)
+    return max(norm_emotions[a_emotions], key = norm_emotions[a_emotions].get)
 
-
+available_emotions = {"Happy", "Sad", "Angry", "Fear", "Surprise", "Disgust", "Neutral"}
 emotion = get_emotion_helper()
-respond_to_emotion(interpret_emotion(emotion))
+respond_to_emotion(interpret_emotion(emotion), available_emotions)

@@ -56,7 +56,7 @@ def talk_to_manuela():
     # Prompt from the user
     userInput = input()
     emotion_weights: dict = te.get_emotion(userInput)
-    emotion_weights["Neutral"] = 0
+    emotion_weights["neutral"] = 0
     emotion = md.interpret_emotion(emotion_weights).lower()
 
     tr.tts(
@@ -65,10 +65,10 @@ def talk_to_manuela():
     
     correct_response = input()
     if correct_response.lower() == "yes":
-        if len(md.available_emotions) == 1 and emotion == "Neutral":
+        if len(md.available_emotions) == 1 and emotion == "neutral":
             tr.tts(random.choice(manuelaIsConfused))
         elif emotion in md.available_emotions:
-            oi.responseGenerator(emotion, userInput)
+            tr.tts(oi.responseGenerator(emotion, userInput))
         else:
             tr.tts(
                 "I'm sorry, I don't understand that emotion. Could you explain further?"
@@ -76,7 +76,7 @@ def talk_to_manuela():
             talk_to_manuela()
     elif correct_response.lower() == "no":
         tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
-        if emotion != "Neutral":
+        if emotion != "neutral":
             md.available_emotions.remove(emotion)
         talk_to_manuela()
 

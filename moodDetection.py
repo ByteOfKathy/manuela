@@ -51,6 +51,12 @@ def interpret_emotion(emotion: dict) -> str:
     if "neutral" not in emotion:
         emotion["neutral"] = 0.0
     max_emotion = ["neutral", 0.0]
+
+    lowercase_emotion: dict = {}
+    for e in emotion:
+        lowercase_emotion[e.lower()] = emotion[e]
+
+    emotion = lowercase_emotion
     for emo in available_emotions:
         if emotion[emo] > max_emotion[1]:
             max_emotion = emo, emotion[emo]

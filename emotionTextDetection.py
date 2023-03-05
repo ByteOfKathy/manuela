@@ -30,10 +30,9 @@ surpriseResponses = [
 ]
 neutralResponses = ["Ah, it seems it's a so-so day for you. That's okay!"]
 
-global available_emotions 
-available_emotions = set(
-    ["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"]
-)
+global available_emotions
+available_emotions = set(["Happy", "Sad", "Angry", "Fear", "Surprise", "Neutral"])
+
 
 def get_emotion_helper() -> dict:
     tr.tts("Hello! I'm Manuela. What's your name? ")
@@ -51,7 +50,8 @@ def interpret_emotion(emotion: dict) -> str:
     :return: the emotion with the highest value
     """
 
-    if "Neutral" not in emotion: emotion["Neutral"] = 0.0
+    if "Neutral" not in emotion:
+        emotion["Neutral"] = 0.0
     max_emotion = ["Neutral", 0.0]
     for emo in available_emotions:
         if emotion[emo] > max_emotion[1]:
@@ -68,7 +68,7 @@ def respond_to_emotion(emotion: str):
     :return: None
 
     """
-    
+
     tr.tts(
         f"It seems you're mostly feeling {emotion}. Is that correct? Please respond yes or no"
     )
@@ -95,7 +95,8 @@ def respond_to_emotion(emotion: str):
             respond_to_emotion(interpret_emotion(te.get_emotion(input())))
     elif correct_response.lower() == "no":
         tr.tts("I'm sorry, I must have misunderstood. Could you tell me more?")
-        if emotion != "Neutral": available_emotions.remove(emotion)
+        if emotion != "Neutral":
+            available_emotions.remove(emotion)
         respond_to_emotion(interpret_emotion(te.get_emotion(input())))
 
 
@@ -112,7 +113,9 @@ def get_strongest_emotion(t_emotions: dict, i_emotions: dict) -> str:
     norm_emotions = dict()
     for t_emotion, t_value in t_emotions.items():
         norm_emotions[t_emotion] = (t_value + i_emotions[t_emotion]) / 2
-    return max(norm_emotions[available_emotions], key=norm_emotions[available_emotions].get)
+    return max(
+        norm_emotions[available_emotions], key=norm_emotions[available_emotions].get
+    )
 
 
 emotion = get_emotion_helper()

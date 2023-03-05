@@ -13,8 +13,7 @@ def get_emotion_helper() -> dict:
     :return: the emotion from the user
     """
     tr.tts("Hello! I'm Manuela. What's your name? ")
-    # name = tr.recognizeSpeech()
-    name = "John"
+    name = tr.recognizeSpeech()
     tr.tts("Hello " + name + ", how are you feeling today?")
 
     talk_to_manuela(name)
@@ -28,8 +27,7 @@ def talk_to_manuela(name: str):
     """
 
     # Prompt from the user
-    # userInput = tr.recognizeSpeech()
-    userInput = "I am feeling happy"
+    userInput = tr.recognizeSpeech()
     tr.tts(
         "I see, give me some time to process how you are feeling, it must be a lot for you as much as it is for me."
     )
@@ -41,8 +39,7 @@ def talk_to_manuela(name: str):
         f"From what I can see and hear, it seems you're mostly feeling {emotion}. Is that correct? A good old yes or no will do the trick."
     )
 
-    # correct_response = tr.recognizeSpeech()
-    correct_response = "yes"
+    correct_response = tr.recognizeSpeech()
     if correct_response.lower() == "yes":
         if len(md.available_emotions) == 1 and emotion == "neutral":
             tr.tts(

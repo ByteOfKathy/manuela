@@ -1,7 +1,6 @@
 import pytest
 import cv2
 
-
 # only run this locally or it will fail GHA
 try:
     import moodDetection as md
@@ -15,4 +14,6 @@ def test_moodDetection():
     Returns True if the emotion detected in image is happy
     """
     test_img = cv2.imread("images/nice-man-smiling.jpg")
+    test_img2 = cv2.imread("images/nonface.jpg")
     assert md.detectEmotion(test_img) == "happy"
+    assert md.detectEmotion(test_img) == "neutral"

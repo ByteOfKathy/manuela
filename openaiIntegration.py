@@ -2,10 +2,10 @@ import os
 import openai
 from dotenv import load_dotenv
 
-load_dotenv("openapi.env")
-openai.api_key = os.getenv("OPENAPIKEY")
+load_dotenv(".env")
+openai.api_key = os.getenv("OPENAIAPIKEY")
 
-
+import moodDetection as md
 def responseGenerator(emotion, context) -> str:
     """
 
@@ -31,3 +31,8 @@ def responseGenerator(emotion, context) -> str:
         )
 
     return response["choices"][0]["text"]
+
+if __name__ == "__main__":
+    emote = md.detectEmotion("images/nice-man-smiling.jpg")
+    print(emote)
+    print(responseGenerator(emote, "I am having a great day"))

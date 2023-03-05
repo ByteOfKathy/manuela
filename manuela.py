@@ -16,23 +16,27 @@ def get_emotion_helper() -> dict:
     name = tr.recognizeSpeech()
     tr.tts("Hello " + name + ", how are you feeling today?")
 
-    talk_to_manuela()
+    talk_to_manuela(name)
 
 
-def talk_to_manuela():
+def talk_to_manuela(name: str):
     """
     Responds to the emotion
     :param emotion: the emotion to respond to
+    :param name: the name of the user
     """
 
     # Prompt from the user
     userInput = tr.recognizeSpeech()
+    tr.tts(
+        "I see, give me some time to process how you are feeling, it must be a lot for you as much as it is for me."
+    )
     emotion_weights: dict = te.get_emotion(userInput)
     emotion_weights["neutral"] = 0
     emotion = md.interpret_emotion(emotion_weights).lower()
 
     tr.tts(
-        f"It seems you're mostly feeling {emotion}. Is that correct? Please respond yes or no"
+        f"From what I can see and hear, it seems you're mostly feeling {emotion}. Is that correct? A good old yes or no will do the trick."
     )
 
     correct_response = tr.recognizeSpeech()
@@ -42,6 +46,9 @@ def talk_to_manuela():
                 oi.responseGenerator(emotion, userInput)
             )  # To change later to some custom respone for not understanding the user's emotion
         elif emotion in md.available_emotions:
+            tr.tts(
+                f"Well, {name} give me some time to think, I will be right back with some suggestions."
+            )
             tr.tts(oi.responseGenerator(emotion, userInput))
         else:
             tr.tts(
